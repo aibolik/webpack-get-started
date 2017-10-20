@@ -1,30 +1,14 @@
-import lodash from 'lodash';
-import printMe from './print.js';
-import './styles.css';
+import { cube } from './math.js';
 
 function component() {
-  var element = document.createElement('div');
-  var btn = document.createElement('button');
+  var element = document.createElement('pre');
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = lodash.join(['Hello', 'webpack!!!'], ' ');
-
-  btn.innerHTML = 'Click me and the check the console';
-  btn.onclick = printMe;
-
-  element.appendChild(btn);
+  element.innerHTML = [
+  	'hello wepback!',
+  	'5 cubed is equal to ' + cube(5)
+  ].join('\n\n');
 
   return element;
 }
 
-let element = component();
-document.body.appendChild(element);
-
-if (module.hot) {
-	module.hot.accept('./print.js', function() {
-		console.log('Accepting the updated printMe module');
-		document.body.removeChild(element);
-		element = component(); // Re-render the "component" to update the click handler
-		document.body.appendChild(element);
-	})
-}
+document.body.appendChild(component());
